@@ -1,0 +1,22 @@
+[default]
+# Todoist API token
+token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Todoist project to submit tasks to
+project = "Triage"
+
+# whitelist of From phone numbers/submitters
+allowed = [
+     "+15551231230",
+     "+15551232345",
+]
+# we don't want debug output enabled by default
+debug = "False"
+
+# if you export ENV_FOR_DYNACONF=development entries below will be merged
+[development]
+debug = "True"
+
+allowed = [
+     "thisisatest",
+]
