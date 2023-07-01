@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 from wsgiref.simple_server import make_server
 import falcon
-import tomllib
-import json
 import logging
 import sys
 from urllib.parse import parse_qsl
-from optparse import OptionParser
 from todoist_api_python.api import TodoistAPI
-from bson import ObjectId
 from dynaconf import Dynaconf
 
 settings = Dynaconf(
@@ -27,26 +23,12 @@ if settings.debug == "True":
 else:
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-logging.debug(settings.token)
 logging.debug(settings.allowed)
 
 api = TodoistAPI(settings.token)
 app = falcon.App()
 
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
-
 class ToDo:
-    def on_get(self, request, resp):
-        logging.info("GET request")
-        logging.info("resp")
-        logging.info(resp)
-        logging.info("request")
-        logging.info(request)
     def on_post(self, request, resp):
         logging.info("PUT request")
         logging.debug(resp)
@@ -86,11 +68,8 @@ if __name__ == '__main__':
             if project.name == settings.project:
                 project_id = project.id
         logging.debug(f"project_id: {project_id}")
-            # print(f"{project.name}: {project.id}")
     except Exception as error:
         print(error)
     with make_server('0.0.0.0', 18080, app) as httpd:
         logging.info('Serving on port 18080...')
-
-        # Serve until process is killed
         httpd.serve_forever()
