@@ -34,6 +34,6 @@ FROM debian:bookworm-slim
 COPY --from=builder $VENV_PATH $VENV_PATH
 ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 COPY twilio-todoist-proxy.py /app/
-COPY twilio-todoist-proxy.toml /etc/
+# COPY twilio-todoist-proxy.toml /etc/
 RUN chmod +x /app/twilio-todoist-proxy.py
 CMD ["/app/twilio-todoist-proxy.py"]
