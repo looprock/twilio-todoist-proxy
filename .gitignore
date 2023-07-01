@@ -163,3 +163,4 @@ cython_debug/
 .python-version
 .venv
 twilio-todoist-proxy.toml
+test.sh
