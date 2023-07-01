@@ -5,7 +5,9 @@ Accept twilio webhooks to submit to todoist API.
 I created this project pretty much exclusively to be able to send todo items from my Apple watch. I can use Siri to say something like "Text todoist" with twilio as the contact number. Siri handles the speech to text portion and sends the message to twilio, which is configured to point SMS at this proxy, which then creates a new task in todoist. It's pretty Rube Goldberg. Is it a bit gratuitous? Absolutely, but also very handy as I often find myself in my *default mode* while driving and think of things I need to do. Is there an easier way to go about this?  Probably, but when you have an API hammer everything becomes an API nail.
 
 # Configuration
-Copy twilio-todoist-proxy.toml.example to twilio-todoist-proxy.toml
+Copy twilio-todoist-proxy.toml.example to twilio-todoist-proxy.toml, then edit it.
+
+To use the docker image available at https://github.com/looprock/twilio-todoist-proxy/pkgs/container/twilio-todoist-proxy  mount twilio-todoist-proxy.toml to /etc/twilio-todoist-proxy.toml in your container.
 
 __token__: your todoist API token
 
