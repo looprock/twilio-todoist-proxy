@@ -46,12 +46,6 @@ def print_stuff(req, resp):
     return
 
 class ToDo:
-    def on_put(self, req, resp):
-        logging.debug("PUT request")
-        print_stuff(req, resp)
-    def on_get(self, req, resp):
-        logging.debug("GET request")
-        print_stuff(req, resp)
     def on_post(self, request, resp):
         logging.debug("POST request")
         logging.debug(resp)
@@ -78,9 +72,22 @@ class ToDo:
                 else:
                     logging.warning("Invalid number: %s" % params[b'From'].decode('ascii'))
 
+class deBug:
+    def on_put(self, req, resp):
+        logging.debug("PUT request")
+        print_stuff(req, resp)
+    def on_get(self, req, resp):
+        logging.debug("GET request")
+        print_stuff(req, resp)
+    def on_post(self, req, resp):
+        logging.debug("POST request")
+        print_stuff(req, resp)
+
 todo = ToDo()
+debugit = deBug()
 
 app.add_route('/todo', todo)
+app.add_route('/debug', debugit)
 
 if __name__ == '__main__':
     global project_id
