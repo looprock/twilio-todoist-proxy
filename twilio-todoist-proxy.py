@@ -3,6 +3,7 @@ from wsgiref.simple_server import make_server
 import falcon
 import logging
 import sys
+import json
 from urllib.parse import parse_qsl
 from todoist_api_python.api import TodoistAPI
 from dynaconf import Dynaconf
@@ -34,17 +35,25 @@ def print_stuff(req, resp):
         return
     print(resp)
     print(req)
-    body = req.stream.read(req.content_length or 0)
-    print(body)
+    print("Body:")
+    body = req.stream.read(req.content_length or 0).decode('utf-8')
+    if req.get_header('content-type') == 'application/json':
+        print("body is json")
+        print(json.loads(body))
+    else:
+        print("body not json")
+        print(body)
     return
 
 class ToDo:
     def on_put(self, req, resp):
+        logging.debug("PUT request")
         print_stuff(req, resp)
     def on_get(self, req, resp):
+        logging.debug("GET request")
         print_stuff(req, resp)
     def on_post(self, request, resp):
-        logging.info("PUT request")
+        logging.debug("POST request")
         logging.debug(resp)
         print(request.get_header('content-type'))
         if request.method == 'POST':
