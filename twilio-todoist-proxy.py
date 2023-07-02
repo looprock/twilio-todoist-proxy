@@ -28,15 +28,21 @@ logging.debug(settings.allowed)
 api = TodoistAPI(settings.token)
 app = falcon.App()
 
+def print_stuff(req, resp):
+    if not req.content_length:
+        print("no content")
+        return
+    print(resp)
+    print(req)
+    body = req.stream.read(req.content_length or 0)
+    print(body)
+    return
+
 class ToDo:
     def on_put(self, req, resp):
-        print(resp)
-        print(req)
-        print(req.get_header())
+        print_stuff(req, resp)
     def on_get(self, req, resp):
-        print(resp)
-        print(req)
-        print(req.get_header())
+        print_stuff(req, resp)
     def on_post(self, request, resp):
         logging.info("PUT request")
         logging.debug(resp)
