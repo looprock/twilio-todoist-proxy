@@ -37,6 +37,7 @@ def print_stuff(req, resp):
     logging.debug(req)
     logging.debug("Body:")
     body = req.stream.read(req.content_length or 0).decode('utf-8')
+    logging.debug(body)
     if req.get_header('content-type') == 'application/json':
         logging.debug("body is json")
         logging.debug(json.loads(body))
