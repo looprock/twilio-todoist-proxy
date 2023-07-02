@@ -29,6 +29,14 @@ api = TodoistAPI(settings.token)
 app = falcon.App()
 
 class ToDo:
+    def on_put(self, req, resp):
+        print(resp)
+        print(req)
+        print(req.get_header())
+    def on_get(self, req, resp):
+        print(resp)
+        print(req)
+        print(req.get_header())
     def on_post(self, request, resp):
         logging.info("PUT request")
         logging.debug(resp)
