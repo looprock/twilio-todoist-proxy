@@ -31,18 +31,18 @@ app = falcon.App()
 
 def print_stuff(req, resp):
     if not req.content_length:
-        print("no content")
+        logging.debug("no content")
         return
-    print(resp)
-    print(req)
-    print("Body:")
+    logging.debug(resp)
+    logging.debug(req)
+    logging.debug("Body:")
     body = req.stream.read(req.content_length or 0).decode('utf-8')
     if req.get_header('content-type') == 'application/json':
-        print("body is json")
-        print(json.loads(body))
+        logging.debug("body is json")
+        logging.debug(json.loads(body))
     else:
-        print("body not json")
-        print(body)
+        logging.debug("body not json")
+        logging.debug(body)
     return
 
 class ToDo:
